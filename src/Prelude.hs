@@ -25,3 +25,6 @@ import Safe as X (
   , lastMay
   , tailMay
   )
+
+applyN :: Int -> (a -> a) -> a -> a
+applyN n f = X.foldr (.) id (X.replicate n f)
