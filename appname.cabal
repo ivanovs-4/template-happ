@@ -18,6 +18,10 @@ extra-source-files: CHANGELOG.md
 common common-deps
     default-language:    Haskell2010
 
+    mixins:
+        base (Prelude as BasePrelude)
+      , base hiding (Prelude)
+
     default-extensions:
 
         ConstraintKinds
@@ -49,11 +53,15 @@ common common-deps
         ViewPatterns
 
     build-depends:    base ^>=4.14.1.0
+      , safe
+      , text
 
 library
     import: common-deps
     hs-source-dirs:   src
-    exposed-modules:  {Appname}
+    exposed-modules:
+        {Appname}
+        Prelude
 
 executable {appname}
     import: common-deps
