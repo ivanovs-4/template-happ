@@ -41,6 +41,7 @@ common common-deps
         KindSignatures
         LambdaCase
         MultiParamTypeClasses
+        NoMonomorphismRestriction
         OverloadedLabels
         OverloadedStrings
         RankNTypes
