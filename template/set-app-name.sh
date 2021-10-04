@@ -14,8 +14,8 @@ find . -type f -not -path '*/\.*' \
 find . -type f -not -path '*/\.*' \
   -exec sed -i "s/{${template_name}}/${new_app_name}/g" {} +
 
-find . -type f -not -path '*/\.*' \
-  -name "${Template_name_cap}"'*.hs' \
+find . -not -path '*/\.*' \
+  -name '*'"${Template_name_cap}"'*' \
   -exec rename "${Template_name_cap}" "${New_app_name_cap}" {} +
 
 mv -v appname.cabal "${new_app_name}.cabal"

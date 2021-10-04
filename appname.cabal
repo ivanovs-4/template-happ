@@ -55,12 +55,14 @@ common common-deps
     build-depends:    base ^>=4.14.1.0
       , safe
       , text
+      , unix
 
 library
     import: common-deps
     hs-source-dirs:   src
     exposed-modules:
         {Appname}
+        {Appname}.Helpers.SignalHandlers
         Prelude
 
 executable {appname}
