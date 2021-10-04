@@ -64,6 +64,8 @@ library
     exposed-modules:
         {Appname}
         {Appname}.Helpers.SignalHandlers
+        CustomPrelude
+    other-modules:
         Prelude
 
 executable {appname}
@@ -78,6 +80,8 @@ test-suite {appname}-test
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test
     main-is:          {Appname}Test.hs
+    other-modules:
+        Prelude
     build-depends:
         {appname}
     ghc-options:
