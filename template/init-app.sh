@@ -8,6 +8,7 @@ new_app_name=${args[0]}
 Template_name_cap=${template_name^}
 New_app_name_cap=${new_app_name^}
 
+cp -fv template/pre-push.sh .git/hooks/pre-push
 rm -rf template
 
 find . -type f -not -path '*/\.*' \

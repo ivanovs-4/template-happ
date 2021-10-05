@@ -48,6 +48,18 @@ set -x
 nix develop -c cabal exec ${new_app_name}
 )
 
+# echo ""
+# (
+# set -x
+# git init --bare ../check-template.git
+# git remote set-url template ../check-template.git
+# git clean -fdx
+# git checkout template
+# ls .git
+# # git push  # causes infinite cloning and re-checking template
+# git checkout master
+# )
+
 )
 
 echo ""
