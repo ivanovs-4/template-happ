@@ -2,6 +2,7 @@
 args=("$@")
 set -eu pipefail
 
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 new_app_name=checkapp
 check_dir=$(mktemp -d)
 
@@ -11,16 +12,13 @@ set -e
 
 cd ${check_dir}
 
-git clone /home/iv/haskell/templates/template-happ/ ${new_app_name}
-cd ${new_app_name}
+cat ${SCRIPTPATH}/use-template.sh | bash -s -- \
+  $(dirname ${SCRIPTPATH}) \
+  "${new_app_name}"
+
+cd "${new_app_name}"
 
 echo ""
-echo "App directory:"
-pwd
-echo ""
-
-./template/set-app-name.sh "${new_app_name}"
-
 (
 set -x
 nix build
