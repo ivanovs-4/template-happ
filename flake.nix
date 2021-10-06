@@ -7,32 +7,48 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs = { self, ... }@inputs:
+    inputs.flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
-
-        haskellPackages = pkgs.haskellPackages;
-
-        jailbreakUnbreak = pkg:
-          pkgs.haskell.lib.doJailbreak (pkg.overrideAttrs (_: { meta = { }; }));
+        pkgs = inputs.nixpkgs.legacyPackages.${system};
 
         packageName = "{appname}";
-      in {
-        packages.${packageName} =
-          haskellPackages.callCabal2nix packageName self rec {
-            # Dependency overrides go here
+
+        haskellPackages = pkgs.haskellPackages.override {
+          inherit ((self.overlay.${system} {} pkgs).${packageName}) overrides;
+        };
+
+        chain-overrides = new: old:
+          builtins.foldl' (upd: overrides: upd // overrides new (old // upd)) old;
+
+        overrides = new: old: {
+          ${packageName} = old.callCabal2nix packageName self {
           };
+        };
+
+      in {
+
+        overlay = final: prev: {
+          ${packageName}.overrides = new: old: chain-overrides new old [
+            overrides
+          ];
+        };
+
+        packages.${packageName} = haskellPackages.${packageName};
 
         defaultPackage = self.packages.${system}.${packageName};
 
         devShell = pkgs.mkShell {
-          buildInputs = with haskellPackages; [
+          buildInputs = with pkgs.haskellPackages; [
             ghcid
             cabal-install
-          ];
 
-          inputsFrom = builtins.attrValues self.packages.${system};
+            (pkgs.haskellPackages.ghcWithPackages (h: with h; [
+            ]))
+
+          ];
+          inputsFrom = [ self.defaultPackage ];
+          # inputsFrom = builtins.attrValues self.packages.${system};
         };
       });
 }
