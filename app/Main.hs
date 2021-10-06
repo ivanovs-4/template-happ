@@ -1,7 +1,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 module Main where
 
-import CustomPrelude
+import {Appname}.CustomPrelude
 import {Appname} ({appname}Main)
 
 main :: IO ()

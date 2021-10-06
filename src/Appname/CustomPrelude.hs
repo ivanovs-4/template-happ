@@ -1,8 +1,8 @@
 {-# language NoImplicitPrelude #-}
 
-module CustomPrelude
+module {Appname}.CustomPrelude
   ( module X
-  , module CustomPrelude
+  , module {Appname}.CustomPrelude
   ) where
 
 import BasePrelude as X

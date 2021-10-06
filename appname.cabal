@@ -64,7 +64,7 @@ library
     exposed-modules:
         {Appname}
         {Appname}.Helpers.SignalHandlers
-        CustomPrelude
+        {Appname}.CustomPrelude
     other-modules:
         Prelude
 

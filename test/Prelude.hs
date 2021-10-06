@@ -1,5 +1,5 @@
 module Prelude
-  ( module CustomPrelude
+  ( module {Appname}.CustomPrelude
   ) where
 
-import CustomPrelude
+import {Appname}.CustomPrelude
