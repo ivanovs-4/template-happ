@@ -1,5 +1,5 @@
 #/usr/bin/env bash
-set -eux pipefail
+set -eu pipefail
 
 current_branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
 
