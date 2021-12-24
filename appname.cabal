@@ -46,6 +46,7 @@ common common-deps
         OverloadedStrings
         RankNTypes
         RecordWildCards
+        RecursiveDo
         ScopedTypeVariables
         StandaloneDeriving
         TupleSections
@@ -54,6 +55,7 @@ common common-deps
         ViewPatterns
 
     build-depends:    base ^>=4.14.1.0
+      , containers
       , safe
       , text
       , unix
@@ -74,6 +76,13 @@ executable {appname}
     main-is:          Main.hs
     build-depends:
         {appname}
+    ghc-options:
+        -threaded
+        -rtsopts
+        "-with-rtsopts=-N4 -A64m -AL64m -qn2 -I0"
+        -Wall
+        -O2
+        -eventlog
 
 test-suite {appname}-test
     import: common-deps
